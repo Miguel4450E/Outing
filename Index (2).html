@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#e7edf0">
+<title>¿Quieres salir conmigo?</title>
+<style>
+:root{
+  --bg:#e8eef0; --panel:#f8faf8; --ink:#344451; --muted:#71818b;
+  --blue:#c9dce4; --sage:#d4e1d3; --butter:#eee5c9; --lavender:#dcddec;
+  --accent:#7895a2; --line:#d5dfe1;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;padding:22px;
+  background:radial-gradient(circle at 12% 12%,#d7e5e6 0,transparent 32%),
+             radial-gradient(circle at 90% 85%,#e4e1d5 0,transparent 30%),var(--bg);
+  color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  display:grid;place-items:center
+}
+.shell{
+  width:min(930px,100%);border:1px solid #d2dcde;border-radius:24px;
+  overflow:hidden;background:rgba(249,251,249,.94);
+  box-shadow:0 24px 70px rgba(58,77,85,.13)
+}
+header{
+  height:64px;padding:0 25px;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid var(--line)
+}
+.logo{font-size:13px;font-weight:850;letter-spacing:.18em;color:#526975}
+.logo span{color:#9a9b79}
+main{padding:clamp(38px,8vw,78px) 28px;text-align:center}
+h1{font:500 clamp(42px,8vw,72px)/1.08 Georgia,serif;margin:0;color:#394c58}
+.buttons{height:100px;max-width:390px;margin:28px auto 0;display:flex;align-items:center;justify-content:center;gap:18px;position:relative}
+button{
+  font:750 14px system-ui;border:0;border-radius:999px;padding:14px 25px;
+  cursor:pointer;transition:transform .18s,background .18s,box-shadow .18s
+}
+button:hover{transform:translateY(-2px)}
+.yes{background:#cbded8;color:#354d4b;position:relative;z-index:2;box-shadow:0 5px 14px #78958b25}
+.no{background:#e4e8ed;border:1px solid #c7d0d8;color:#687783;position:absolute;left:calc(50% + 55px);top:28px;white-space:nowrap}
+.hidden{display:none!important}
+#plans{padding:12px 28px 42px}
+.intro{text-align:center;margin:0 0 24px}
+.intro h2{font:500 clamp(30px,5vw,42px) Georgia,serif;margin:0 0 8px;color:#394c58}
+.intro p{color:var(--muted);font-size:14px;margin:0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{
+  border:1px solid #dce3e1;border-radius:18px;padding:23px 20px;
+  display:flex;flex-direction:column;min-height:340px;position:relative;text-align:left;
+  box-shadow:0 7px 20px rgba(55,73,80,.05)
+}
+.card:nth-child(1){background:#edf3f2}
+.card:nth-child(2){background:#f1f0f6}
+.card:nth-child(3){background:#f4f0e4}
+.card.featured{border:2px solid #c8c9d9}
+.kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7b8a8f;font-weight:850}
+.card h3{font:600 27px Georgia,serif;margin:13px 0 8px;color:#3d505b}
+.price{font-size:23px;font-weight:850;letter-spacing:-.04em;margin:0 0 15px;color:#5b7279}
+.card ul{list-style:none;padding:0;margin:0 0 22px}
+.card li{font-size:13px;line-height:1.45;color:#586a72;padding:6px 0;border-bottom:1px solid #52616b14}
+.card li:last-child{border-bottom:0}
+.card li::before{content:"•";color:#91a99d;font-weight:900;margin-right:8px}
+.card button{margin-top:auto;background:#c8d9d7;color:#3d5554;width:100%;padding:13px}
+.card:nth-child(2) button{background:#d8d8e8;color:#4d506c}
+.card:nth-child(3) button{background:#e7ddbd;color:#665b3c}
+.ribbon{position:absolute;right:12px;top:12px;background:#e0e1ed;color:#656982;border-radius:99px;padding:5px 8px;font-size:9px;font-weight:850}
+#result{padding:52px 25px 62px;text-align:center}
+.mark{width:58px;height:58px;border:1px solid #c99f99;color:#b67f78;border-radius:50%;display:grid;place-items:center;margin:0 auto 20px;font-size:27px}
+#result h2{font:500 clamp(30px,5vw,45px) Georgia,serif;margin:0 0 12px;color:#465b63}
+#result p{color:#687982;line-height:1.7;max-width:520px;margin:0 auto}
+#result button{margin-top:27px;background:#cbded8;color:#354d4b}
+footer{padding:15px 23px;border-top:1px solid var(--line);color:#91a0a5;font-size:10px;letter-spacing:.07em;text-align:center}
+@media(max-width:720px){
+  .cards{grid-template-columns:1fr}.card{min-height:0}
+  #plans{padding:8px 19px 30px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="logo">OUTING<span>™</span></div></header>
+
+<main id="home">
+  <h1>¿Quieres salir conmigo?</h1>
+  <div class="buttons" id="buttonArea">
+    <button class="yes" id="yes">Sí</button>
+    <button class="no" id="no">No</button>
+  </div>
+</main>
+
+<section id="plans" class="hidden">
+  <div class="intro">
+    <h2>Elige tu plan</h2>
+    <p>Experiencias cuidadosamente sobrevaloradas.</p>
+  </div>
+  <div class="cards">
+    <article class="card">
+      <div class="kicker">Plan básico</div>
+      <h3>Cita Pro</h3>
+      <div class="price">$299.99 MXN</div>
+      <ul>
+        <li>Salida normal</li>
+        <li>Tú invitas</li>
+        <li>Te doy un abrazo</li>
+        <li>Te dejo en tu casa</li>
+      </ul>
+      <button data-plan="Cita Pro">Pagar</button>
+    </article>
+
+    <article class="card featured">
+      <div class="ribbon">EDICIÓN PLUS</div>
+      <div class="kicker">Plan premium</div>
+      <h3>Cita Max</h3>
+      <div class="price">$699.67 MXN</div>
+      <ul>
+        <li>Todo lo anterior</li>
+        <li>Te llevo flores</li>
+        <li>Te hago reír</li>
+        <li>Cuenta 50/50</li>
+      </ul>
+      <button data-plan="Cita Max">Pagar</button>
+    </article>
+
+    <article class="card">
+      <div class="kicker">Plan de lujo</div>
+      <h3>Cita Max+</h3>
+      <div class="price">$999.99 MXN</div>
+      <ul>
+        <li>Todo lo anterior</li>
+        <li>Te llevo chocolates</li>
+        <li>Química garantizada*</li>
+        <li>Yo invito, si cuesta menos de $100</li>
+        <li>Puedes usarme para darle celos a alguien</li>
+      </ul>
+      <button data-plan="Cita Max+">Pagar</button>
+    </article>
+  </div>
+  <p style="text-align:center;color:#9aa5a6;font-size:10px;margin:18px 0 0">*La química está sujeta a disponibilidad del universo.</p>
+</section>
+
+<section id="result" class="hidden">
+  <div class="mark">×</div>
+  <div class="kicker" style="color:#ad8179;margin-bottom:12px">Pago rechazado</div>
+  <h2>Transacción denegada</h2>
+  <p>El pago de <strong id="planName"></strong> fue rechazado por no ser dign@ de salir conmigo.</p>
+  <button id="again">Volver a elegir</button>
+</section>
+
+<footer>OUTING™</footer>
+</div>
+
+<script>
+const home=document.getElementById('home');
+const plans=document.getElementById('plans');
+const result=document.getElementById('result');
+const no=document.getElementById('no');
+const area=document.getElementById('buttonArea');
+
+document.getElementById('yes').addEventListener('click',()=>{
+  home.classList.add('hidden');
+  plans.classList.remove('hidden');
+});
+
+function moveNo(){
+  const areaRect=area.getBoundingClientRect();
+  const buttonRect=no.getBoundingClientRect();
+  const maxX=Math.max(0,areaRect.width-buttonRect.width);
+  const maxY=Math.max(0,areaRect.height-buttonRect.height);
+  no.style.left=(Math.random()*maxX)+'px';
+  no.style.top=(Math.random()*maxY)+'px';
+}
+no.addEventListener('pointerdown',e=>{e.preventDefault();moveNo();});
+no.addEventListener('click',e=>{e.preventDefault();moveNo();});
+no.addEventListener('mouseenter',moveNo);
+
+document.querySelectorAll('[data-plan]').forEach(button=>{
+  button.addEventListener('click',()=>{
+    document.getElementById('planName').textContent=button.dataset.plan;
+    plans.classList.add('hidden');
+    result.classList.remove('hidden');
+  });
+});
+document.getElementById('again').addEventListener('click',()=>{
+  result.classList.add('hidden');
+  plans.classList.remove('hidden');
+});
+</script>
+</body>
+</html>
